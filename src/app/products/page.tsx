@@ -1,20 +1,25 @@
+import { getProducts } from "@/services/products";
+import Link from "next/link";
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+    const products = await getProducts();
+
     return (
         <div>
             <h1>Produtos</h1>
             <p>Explore nossa seleção de produtos incríveis!</p>
 
             <ul>
-                <li>
-                    <a href="/products/product1">Produto 1</a>
-                </li>
-                <li>
-                    <a href="/products/product2">Produto 2</a>
-                </li>
-                <li>
-                    <a href="/products/product3">Produto 3</a>
-                </li>
+                {products.map((product) => (
+                    <li key={product.id}>
+                        <Link
+                            href={`/products/${product.id}`}
+                            className="text-blue-400 hover:underline"
+                        >
+                            {product.title}
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </div>
     );
