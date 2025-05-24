@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={inter.variable}>
       <body
-        className={inter.variable}
+        className={inter.variable + "bg-gray-50"}
       >
         <Header/>
         {children}

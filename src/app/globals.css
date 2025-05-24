@@ -109,7 +109,15 @@
   }
 }
 
+body {
+  padding-top: 4rem; /* 64px = h-16 do header */
+}
 
+@media (min-width: 768px) {
+  body {
+    padding-top: 4rem; /* Ajuste para telas maiores  */
+  }
+}
 
 @layer base {
   * {

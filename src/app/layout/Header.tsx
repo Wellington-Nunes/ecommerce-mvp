@@ -9,7 +9,7 @@ export default function Header() {
     const pathname = usePathname();
 
     return (
-        <header className="bg-white shadow-sm">
+        <header className="bg-white shadow-sm fixed top-0 w-full z-50">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
                 {/* Logo + Navegação */}
                 <div className="flex items-center gap-6">
@@ -22,18 +22,18 @@ export default function Header() {
                     <nav className="hidden md:flex items-center space-x-4">
                         <Link
                             href="/"
-                            className={`px-3 py-2 rounded text-sm ${pathname === "/"
-                                ? "text-primary font-medium"
-                                : "text-muted-foreground hover:text-foreground"
+                            className={`px-3 py-2 rounded text-sm transition-colors ${pathname === "/"
+                                    ? "text-primary font-medium bg-primary/10"
+                                    : "text-muted-foreground hover:text-foreground"
                                 }`}
                         >
                             Início
                         </Link>
                         <Link
                             href="/products"
-                            className={`px-3 py-2 rounded text-sm ${pathname === "/products"
-                                ? "text-primary font-medium"
-                                : "text-muted-foreground hover:text-foreground"
+                            className={`px-3 py-2 rounded text-sm transition-colors ${pathname === "/products"
+                                    ? "text-primary font-medium bg-primary/10"
+                                    : "text-muted-foreground hover:text-foreground"
                                 }`}
                         >
                             Produtos
@@ -41,18 +41,24 @@ export default function Header() {
                     </nav>
                 </div>
 
-                {/* Busca centralizada */}
-                <div className="flex-1 max-w-xl">
+                {/* Busca centralizada - Esconder em mobile */}
+                <div className="hidden md:flex flex-1 max-w-xl mx-4">
                     <Input
                         type="search"
                         placeholder="Buscar produtos..."
-                        className="w-full"
+                        className="w-full focus-visible:ring-primary"
                     />
                 </div>
 
                 {/* Carrinho */}
-                <Link href="/cart" className="text-muted-foreground hover:text-foreground">
+                <Link
+                    href="/cart"
+                    className="text-muted-foreground hover:text-foreground relative p-2"
+                >
                     <ShoppingCart className="w-6 h-6" />
+                    <span className="absolute -top-1 -right-1 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                        3
+                    </span>
                 </Link>
             </div>
         </header>
