@@ -4,9 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart } from "lucide-react";
+import { useFilters } from "@/contexts/FiltersContext";
 
 export default function Header() {
     const pathname = usePathname();
+    const { state, actions } = useFilters();
 
     return (
         <header className="bg-white shadow-sm fixed top-0 w-full z-50">
@@ -23,8 +25,8 @@ export default function Header() {
                         <Link
                             href="/"
                             className={`px-3 py-2 rounded text-sm transition-colors ${pathname === "/"
-                                    ? "text-primary font-medium bg-primary/10"
-                                    : "text-muted-foreground hover:text-foreground"
+                                ? "text-primary font-medium bg-primary/10"
+                                : "text-muted-foreground hover:text-foreground"
                                 }`}
                         >
                             Início
@@ -32,8 +34,8 @@ export default function Header() {
                         <Link
                             href="/products"
                             className={`px-3 py-2 rounded text-sm transition-colors ${pathname === "/products"
-                                    ? "text-primary font-medium bg-primary/10"
-                                    : "text-muted-foreground hover:text-foreground"
+                                ? "text-primary font-medium bg-primary/10"
+                                : "text-muted-foreground hover:text-foreground"
                                 }`}
                         >
                             Produtos
@@ -41,12 +43,12 @@ export default function Header() {
                     </nav>
                 </div>
 
-                {/* Busca centralizada - Esconder em mobile */}
+                {/* Campo de busca */}
                 <div className="hidden md:flex flex-1 max-w-xl mx-4">
                     <Input
-                        type="search"
                         placeholder="Buscar produtos..."
-                        className="w-full focus-visible:ring-primary"
+                        value={state.searchTerm}
+                        onChange={(e) => actions.setSearchTerm(e.target.value)}
                     />
                 </div>
 

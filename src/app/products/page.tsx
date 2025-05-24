@@ -5,7 +5,6 @@ export default async function ProductsPage() {
     const products = await getProducts();
 
     return (
-        // Remova a seção de paginação
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-8">
