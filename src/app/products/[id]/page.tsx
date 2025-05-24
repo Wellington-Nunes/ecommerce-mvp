@@ -1,6 +1,5 @@
+import { ProductDetails } from "@/components/products/ProductDetails";
 import { getProduct } from "@/services/products";
-import Link from "next/link";
-
 interface ProductDetailsPageParams {
     params: {
         id: string;
@@ -12,12 +11,10 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
 
     return (
         <div>
-            <h1>Detalhes do Produto</h1>
-            <p>Você está visualizando o produto: {product.title}</p>
-
-            <Link href="/products" className="text-blue-400 hover:underline">
-                Voltar
-            </Link>
+            <div className="container mx-auto py-8 max-w-6xl">
+                {/* <BackButton href="/products" className="mb-6" /> */}
+                <ProductDetails product={product} />
+            </div>
         </div>
     );
 }
