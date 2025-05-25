@@ -1,9 +1,10 @@
 import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ShoppingCart, CreditCard, Link } from "lucide-react";
-import Image from "next/image";
+import { ChevronLeft, ShoppingCart, CreditCard } from "lucide-react";
+import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ProductImageWithSkeleton } from "./ProductImageWithSkeleton";
 
 type ProductDetailsProps = {
   product: Product;
@@ -25,17 +26,13 @@ export function ProductDetails({ product }: ProductDetailsProps) {
       {/* Conteúdo Principal */}
       <div className="grid md:grid-cols-2 gap-8">
         {/* Imagem */}
-        <div className="relative w-full aspect-square bg-white">
-          <Image
-            src={product.image}
-            alt={product.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-contain group-hover:scale-105 transition-transform"
-            priority
-
-          />
-        </div>
+        <ProductImageWithSkeleton
+          src={product.image}
+          alt={product.title}
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="w-full"
+        />
 
         {/* Informações */}
         <div className="space-y-6">
@@ -43,9 +40,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             <h2 className="text-3xl font-bold">{product.title}</h2>
             <div className="mt-2 flex items-center gap-3">
               <Badge variant="secondary">{product.category}</Badge>
-              {product.brand && (
-                <Badge variant="outline">Marca: {product.brand}</Badge>
-              )}
+              {product.brand && <Badge variant="outline">Marca: {product.brand}</Badge>}
             </div>
           </div>
 
@@ -90,15 +85,15 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
                 <div>
                   <p className="text-gray-500">Marca</p>
-                  <p>{product.brand || 'Não especificada'}</p>
+                  <p>{product.brand || "Não especificada"}</p>
                 </div>
                 <div>
                   <p className="text-gray-500">Modelo</p>
-                  <p>{product.model || '--'}</p>
+                  <p>{product.model || "--"}</p>
                 </div>
                 <div>
                   <p className="text-gray-500">Cor</p>
-                  <p>{product.color || '--'}</p>
+                  <p>{product.color || "--"}</p>
                 </div>
               </div>
             </TabsContent>

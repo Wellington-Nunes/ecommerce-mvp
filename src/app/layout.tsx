@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css";
-import Header from "../components/layout/Header";
-import { FiltersProvider } from "@/contexts/FiltersContext";
+import "./globals.css"
+import { FiltersProvider } from "@/contexts/FiltersContext"
+import { SplashScreen } from "@/components/layout/SplashScreen"
+import { LayoutWrapper } from "@/components/layout/LayoutWrapper"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "E-commerce MVP",
+  title: "ECOMMERCE-MVP",
   description: "Uma aplicação moderna de e-commerce construída com Next.js",
   keywords: "e-commerce, produtos, compras online",
 }
@@ -23,14 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={inter.variable}>
-      <body
-        className={inter.variable + "bg-gray-50"}
-      >
+      <body className={`${inter.variable} bg-gray-50`}>
         <FiltersProvider>
-          <Header />
-          {children}
+          <SplashScreen />
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </FiltersProvider>
       </body>
     </html>
-  );
+  )
 }

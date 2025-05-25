@@ -2,7 +2,7 @@
 
 import { Product } from "@/types/product";
 import { ProductCard } from "./ProductCard";
-import { ProductSkeleton } from "./ProductSkeleton";
+import { ProductSkeleton } from "./ProductListSkeleton";
 import { useFilters } from "@/contexts/FiltersContext";
 import { useProductSearch } from "@/hooks/useProductSearch";
 

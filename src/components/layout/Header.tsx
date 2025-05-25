@@ -11,8 +11,8 @@ export default function Header() {
     const { state, actions } = useFilters();
 
     return (
-        <header className="bg-white shadow-sm fixed top-0 w-full z-50">
-            <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+        <header className="bg-white fixed top-0 w-full z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div className="container mx-auto px-4 h-16 grid grid-cols-3 items-center">
                 {/* Logo + Navegação */}
                 <div className="flex items-center gap-6">
                     <Link href="/" className="flex items-center space-x-2">
@@ -44,24 +44,27 @@ export default function Header() {
                 </div>
 
                 {/* Campo de busca */}
-                <div className="hidden md:flex flex-1 max-w-xl mx-4">
+                <div className="hidden md:flex justify-center">
                     <Input
                         placeholder="Buscar produtos..."
                         value={state.searchTerm}
                         onChange={(e) => actions.setSearchTerm(e.target.value)}
+                        className="w-full max-w-md"
                     />
                 </div>
 
                 {/* Carrinho */}
-                <Link
-                    href="/cart"
-                    className="text-muted-foreground hover:text-foreground relative p-2"
-                >
-                    <ShoppingCart className="w-6 h-6" />
-                    <span className="absolute -top-1 -right-1 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                        3
-                    </span>
-                </Link>
+                <div className="flex justify-end">
+                    <Link
+                        href="/cart"
+                        className="text-muted-foreground hover:text-foreground relative p-2"
+                    >
+                        <ShoppingCart className="w-6 h-6" />
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                            3
+                        </span>
+                    </Link>
+                </div>
             </div>
         </header>
     );
