@@ -10,7 +10,7 @@ export const useProductSearch = (
     debounce?: number;
   }
 ) => {
-  const { searchFields = ["title"], debounce = 0 } =
+  const { searchFields = ["title", "description"], debounce = 0 } =
     options || {};
   const [debouncedSearchTerm] = useDebounce(searchTerm, debounce);
 

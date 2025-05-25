@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState, useCallback } from 'react';
 
 type FiltersState = {
     searchTerm: string;
@@ -21,16 +21,23 @@ const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 export const FiltersProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, setState] = useState<FiltersState>({ searchTerm: '' });
 
-    const setSearchTerm = (term: string) =>
+    const setSearchTerm = useCallback((term: string) => {
         setState(prev => ({ ...prev, searchTerm: term }));
+    }, []);
 
-    const resetSearch = () =>
+    const resetSearch = useCallback(() => {
         setState(prev => ({ ...prev, searchTerm: '' }));
+    }, []);
+
+    const actions = useMemo(() => ({
+        setSearchTerm,
+        resetSearch
+    }), [setSearchTerm, resetSearch]);
 
     const value = useMemo(() => ({
         state,
-        actions: { setSearchTerm, resetSearch }
-    }), [state]);
+        actions
+    }), [state, actions]);
 
     return (
         <FiltersContext.Provider value={value}>
