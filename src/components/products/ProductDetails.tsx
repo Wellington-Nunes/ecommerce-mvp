@@ -1,16 +1,21 @@
+"use client";
+
 import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ShoppingCart, CreditCard } from "lucide-react";
+import { ChevronLeft, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProductImageWithSkeleton } from "./ProductImageWithSkeleton";
+import { useCart } from "@/hooks/useCart";
 
 type ProductDetailsProps = {
   product: Product;
 };
 
 export function ProductDetails({ product }: ProductDetailsProps) {
+  const { addItem } = useCart()
+
   return (
     <div className="space-y-8">
       {/* Cabeçalho */}
@@ -55,13 +60,19 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             </p>
 
             <div className="flex gap-4 pt-2">
-              <Button className="flex-1 gap-2">
+              <Button
+                onClick={() =>
+                  addItem({
+                    id: String(product.id),
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                  })
+                }
+                className="w-full text-sm"
+              >
                 <ShoppingCart className="h-4 w-4" />
-                Adicionar ao Carrinho
-              </Button>
-              <Button variant="secondary" className="flex-1 gap-2">
-                <CreditCard className="h-4 w-4" />
-                Comprar Agora
+                Adicionar ao carrinho
               </Button>
             </div>
           </div>

@@ -5,10 +5,15 @@ import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart } from "lucide-react";
 import { useFilters } from "@/contexts/FiltersContext";
+import { useCart } from "@/hooks/useCart"
+import { useState } from "react"
+import { CartDrawer } from "../cart/CartDrawer";
 
 export default function Header() {
     const pathname = usePathname();
     const { state, actions } = useFilters();
+    const { count } = useCart()
+    const [cartOpen, setCartOpen] = useState(false)
 
     return (
         <header className="bg-white fixed top-0 w-full z-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]">
@@ -53,18 +58,23 @@ export default function Header() {
                     />
                 </div>
 
-                {/* Carrinho */}
-                <div className="flex justify-end">
-                    <Link
-                        href="/cart"
+                {/* Carrinho (Drawer) */}
+                <div className="flex justify-end relative">
+                    <button
+                        onClick={() => setCartOpen(true)}
                         className="text-muted-foreground hover:text-foreground relative p-2"
                     >
                         <ShoppingCart className="w-6 h-6" />
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                            3
-                        </span>
-                    </Link>
+                        {count > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                {count}
+                            </span>
+                        )}
+                    </button>
+                    <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
                 </div>
+
+
             </div>
         </header>
     );
