@@ -16,7 +16,7 @@ export default async function ProductsPage() {
                     </p>
                 </div>
                 <div className="max-w-6xl mx-auto">
-                    <ProductList products={products} />
+                    <ProductList products={products} itemsPerPage={12} />
                 </div>
             </div>
         </div>
