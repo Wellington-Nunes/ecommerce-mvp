@@ -3,7 +3,6 @@
 import { CartItem } from '@/types/cart';
 import { createContext, useReducer, useContext, ReactNode, useEffect } from 'react'
 
-
 type State = { items: CartItem[] }
 
 type Action =
@@ -12,7 +11,6 @@ type Action =
   | { type: 'CLEAR_CART' }
   | { type: 'INCREASE_ITEM'; payload: string }
   | { type: 'DECREASE_ITEM'; payload: string }
-
 
 const CartContext = createContext<{
   state: State
@@ -66,14 +64,19 @@ function cartReducer(state: State, action: Action): State {
   }
 }
 
+const isBrowser = typeof window !== 'undefined'
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState, () => {
+    if (!isBrowser) return initialState
     const stored = localStorage.getItem('cart')
     return stored ? JSON.parse(stored) : initialState
   })
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state))
+    if (isBrowser) {
+      localStorage.setItem('cart', JSON.stringify(state))
+    }
   }, [state])
 
   return (
